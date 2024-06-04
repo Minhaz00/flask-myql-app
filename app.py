@@ -12,6 +12,15 @@ def get_db_connection():
         database="test_db"
     )
 
+
+@app.route('/')
+def index():
+    connection = get_db_connection()
+    if connection.is_connected():
+        return jsonify(message="Connected to MySQL database")
+    else:
+        return jsonify(message="Failed to connect to MySQL database"), 500
+
 # Endpoint to get all users
 @app.route('/users', methods=['GET'])
 def get_users():
